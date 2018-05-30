@@ -1,0 +1,13 @@
+image: hatsoftwares/test-ci:latest
+stages:
+  - test
+test:
+  stage: test
+  script:
+    - cpanm -q --installdeps . --with-develop
+    - perl Build.PL
+    - ./Build
+    - HARNESS_PERL_SWITCHES='-MDevel::Cover' ./Build test
+    - PERL5OPT='-Ilib/' HARNESS_PERL_SWITCHES='-MDevel::Cover' cover
+    - ./Build install
+  coverage: '/Total .*\d+\.\d+$/'
