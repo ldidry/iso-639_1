@@ -5,7 +5,7 @@ use strict;
 use warnings;
 use Exporter 'import';
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 our @EXPORT = qw(get_iso639_1);
 
@@ -1505,20 +1505,20 @@ my %codes = (
 );
 
 sub get_iso639_1 {
-    my $input = shift;
+    my $input = lc(shift);
 
     if ($codes{$input}) {
         my %result = %{$codes{$input}};
         return \%result;
     }
 
-    $input =~ m/(?<code>[^_-]+)[_-](?<localisation>[^_-]+)/;
-    my ($code, $localisation) = ($+{code}, $+{localisation});
+    $input =~ m/(?<code>[^_-]+)[_-](?<localization>[^_-]+)/;
+    my ($code, $localization) = ($+{code}, uc($+{localization}));
 
     if (defined($code) && defined $codes{$code}) {
         my %result = %{$codes{$code}};
-        $result{nativeName} .= ' ('.uc($localisation).')';
-        $result{name}       .= ' ('.uc($localisation).')';
+        $result{nativeName} .= ' ('.uc($localization).')';
+        $result{name}       .= ' ('.$localization.')';
         return \%result;
     }
     return undef;
@@ -1561,7 +1561,7 @@ ISO::639_1 exports the following methods:
 
 =head2 get_iso639_1
 
-  Usage    : get_iso639_1('fr')
+  Usage    : get_iso639_1('zu')
   Returns  : a hashref providing the informations described below.
             {
                 "639-1"      => "zu",          # ISO 639-1 code
@@ -1571,10 +1571,10 @@ ISO::639_1 exports the following methods:
                 "nativeName" => "isiZulu",     # native name of the language
                 "wikiUrl"    => "https://en.wikipedia.org/wiki/Zulu_language" # wikipedia URL about the language
             }
-  Argument : an ISO639-1 code with or without localization code. If a localization code is provided,
-             (think "fr-BE", or fr_BE), the localization is appended to the name and nativeName
-             informations (like "Français (BE)"). Localization must be separated from the language
-             code by "-" or "_".
+  Argument : an ISO639-1 code with or without localization code.
+             If a localization code is provided, (think "fr-BE", or "fr_BE"), the localization is
+             appended to the name and nativeName informations (like "Français (BE)").
+             Localization must be separated from the language code by "-" or "_".
 
 =head1 INSTALL
 
