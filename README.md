@@ -30,7 +30,7 @@ ISO::639\_1 exports the following methods:
 
 ## get\_iso639\_1
 
-    Usage    : get_iso639_1('fr')
+    Usage    : get_iso639_1('zu')
     Returns  : a hashref providing the informations described below.
               {
                   "639-1"      => "zu",          # ISO 639-1 code
@@ -40,10 +40,10 @@ ISO::639\_1 exports the following methods:
                   "nativeName" => "isiZulu",     # native name of the language
                   "wikiUrl"    => "https://en.wikipedia.org/wiki/Zulu_language" # wikipedia URL about the language
               }
-    Argument : an ISO639-1 code with or without localization code. If a localization code is provided,
-               (think "fr-BE", or fr_BE), the localization is appended to the name and nativeName
-               informations (like "Français (BE)"). Localization must be separated from the language
-               code by "-" or "_".
+    Argument : an ISO639-1 code with or without localization code.
+               If a localization code is provided, (think "fr-BE", or "fr_BE"), the localization is
+               appended to the name and nativeName informations (like "Français (BE)").
+               Localization must be separated from the language code by "-" or "_".
 
 # INSTALL
 
